@@ -5,7 +5,11 @@
 #ifdef CONFIG_BOOTBLOCK_MAINBOARD_INIT
 #include CONFIG_BOOTBLOCK_MAINBOARD_INIT
 #else
-static void bootblock_mainboard_init(void)
+static inline void bootblock_mainboard_init(void)
 {
+	/*
+	 * Do nothing.
+	 * Start adding activities as and when required
+	 */
 }
 #endif

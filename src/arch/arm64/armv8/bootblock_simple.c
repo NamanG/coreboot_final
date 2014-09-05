@@ -51,14 +51,14 @@ void main(void)
 	 */
 
 	if (boot_cpu()) {
-		//bootblock_cpu_init();
-		//bootblock_mainboard_init();
+		bootblock_cpu_init();
+		bootblock_mainboard_init();
 	}
 
-#ifdef CONFIG_BOOTBLOCK_CONSOLE
-	console_init();
-	exception_init();
-#endif
+	if (IS_ENABLED(CONFIG_BOOTBLOCK_CONSOLE)) {
+		console_init();
+		exception_init();
+	}
 
 	run_romstage();
 }

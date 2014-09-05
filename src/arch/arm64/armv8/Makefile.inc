@@ -32,8 +32,9 @@ armv8_asm_flags = $(armv8_flags)
 ################################################################################
 ifeq ($(CONFIG_ARCH_BOOTBLOCK_ARMV8_64),y)
 
-ifneq ($(CONFIG_ARM64_BOOTBLOCK_CUSTOM),y)
+ifeq ($(CONFIG_ARM64_BOOTBLOCK_CUSTOM),y)
 bootblock-y += bootblock.S
+else
 bootblock-y += bootblock_simple.c
 endif
 bootblock-y += cache.c

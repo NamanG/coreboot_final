@@ -29,6 +29,12 @@ void __attribute__((weak)) arm64_soc_init(void)
 	/* Default weak implementation does nothing. */
 }
 
+unsigned int  __attribute__((weak)) smp_processor_id(void)
+{
+	/* Default weak implementation does nothing. */
+	return 0;
+}
+
 static void seed_stack(void)
 {
 	char *stack_begin;
@@ -55,6 +61,17 @@ static void arm64_init(void)
 	seed_stack();
 	arm64_soc_init();
 	main();
+}
+
+static void secondary_cpu_start(void)
+{
+#ifndef __PRE_RAM__
+	mmu_enable();
+	exception_hwinit();
+
+	/* This will never return. */
+	arch_secondary_cpu_init();
+#endif
 }
 
 /*
