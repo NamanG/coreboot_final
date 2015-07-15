@@ -51,7 +51,7 @@ void main(void)
 	 */
 
 	if (boot_cpu()) {
-		bootblock_cpu_init();
+		//bootblock_cpu_init();
 		bootblock_mainboard_init();
 	}
 

@@ -229,5 +229,20 @@ CPU_RESET_ENTRY(arm64_cpu_startup_resume)
 ENDPROC(arm64_cpu_startup_resume)
 
 ENTRY(stage_entry)
+	b .
 	b	arm64_cpu_startup
+/*ENDPROC(stage_entry)
+
+ENTRY(stage_entry)*/
+	ldr x20, __serial_out
+	mov x21, #0x74
+	str x21, [x20]
+	str x21, [x20]
+	str x21, [x20]
+	str x21, [x20]
+	str x21, [x20]
+.align 4
+	__serial_out:
+	.quad 0x9000000
 ENDPROC(stage_entry)
+	

@@ -2,6 +2,7 @@
  * This file is part of the coreboot project.
  *
  * Copyright 2014 Google Inc.
+ * Copyright 2015, Naman Govil <namangov@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,18 +18,12 @@
  * Foundation, Inc.
  */
 
-#ifndef __ARCH_ARM64_ARMV8_SECMON__
-#define __ARCH_ARM64_ARMV8_SECMON__
 
-#include <arch/cpu.h>
-
-struct secmon_params {
-	size_t online_cpus;
-	struct cpu_action *bsp;
-	struct cpu_action *secondary;
-};
-
-void secmon_run(void (*entry)(void *), void *arg);
-void soc_get_secmon_base_size(uint64_t *secmon_base, size_t *secmon_size);
-
-#endif /*__ARCH_ARM64_ARMV8_SECMON__ */
+.text
+.global smp_processor_id
+smp_processor_id:
+	/* Core 0 and 1 are encoded in the Aff0 (7:0) field of MPIDR_EL1. */
+	/* Multiprocessor Afinity Register (MPIDR) contains CPU ID for a57 */
+	mrs	x0, mpidr_el1
+	uxtb	w0, w0
+	ret

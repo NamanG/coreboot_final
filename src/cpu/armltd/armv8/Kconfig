@@ -1,0 +1,11 @@
+config CPU_ARMLTD_ARMV8
+	bool
+	select ARCH_BOOTBLOCK_ARMV8_64
+	select ARCH_VERSTAGE_ARMV8_64
+	select ARCH_ROMSTAGE_ARMV8_64
+	select ARCH_RAMSTAGE_ARMV8_64
+	default n
+
+if CPU_ARMLTD_ARMV8
+
+endif

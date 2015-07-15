@@ -63,22 +63,26 @@ static void arm64_init(void)
 	main();
 }
 
-static void secondary_cpu_start(void)
-{
-#ifndef __PRE_RAM__
-	mmu_enable();
-	exception_hwinit();
+//static void secondary_cpu_start(void)
+//{
+//#ifndef __PRE_RAM__
+//	mmu_enable();
+//	exception_hwinit();
 
 	/* This will never return. */
-	arch_secondary_cpu_init();
-#endif
-}
+//	arch_secondary_cpu_init();
+//#endif
+//}
 
 /*
  * This variable holds entry point for CPUs starting up. The first
  * element is the BSP path, and the second is the non-BSP path.
  */
-void (*c_entry[2])(void) = { &arm64_init, &arch_secondary_cpu_init };
+#ifdef __PRE_RAM__
+void (*c_entry[2])(void) = { &arm64_init, NULL};
+#else
+void (*c_entry[2])(void) = { &arm64_init, &arch_secondary_cpu_init};
+#endif
 
 void *prepare_secondary_cpu_startup(void)
 {

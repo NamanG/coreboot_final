@@ -219,8 +219,9 @@ void arch_cpu_wait_for_action(void)
 		action_queue_complete(q, orig);
 	}
 }
-
+#ifdef __PRE_RAM__
 int boot_cpu(void)
 {
 	return cpu_is_bsp();
 }
+#endif

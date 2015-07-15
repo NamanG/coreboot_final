@@ -1,8 +1,6 @@
 /*
  * This file is part of the coreboot project.
  *
- * Copyright 2014 Google Inc.
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,18 +15,11 @@
  * Foundation, Inc.
  */
 
-#ifndef __ARCH_ARM64_ARMV8_SECMON__
-#define __ARCH_ARM64_ARMV8_SECMON__
+#include <stddef.h>
+#include <cbmem.h>
+#include <symbols.h>
 
-#include <arch/cpu.h>
-
-struct secmon_params {
-	size_t online_cpus;
-	struct cpu_action *bsp;
-	struct cpu_action *secondary;
-};
-
-void secmon_run(void (*entry)(void *), void *arg);
-void soc_get_secmon_base_size(uint64_t *secmon_base, size_t *secmon_size);
-
-#endif /*__ARCH_ARM64_ARMV8_SECMON__ */
+void *cbmem_top(void)
+{
+	return _dram + (CONFIG_DRAM_SIZE_MB << 20);
+}
